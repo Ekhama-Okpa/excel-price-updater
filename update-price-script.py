@@ -3,7 +3,10 @@ import openpyxl, os
 os.chdir("C:\\Users\\Owner\\Downloads")
 wb = openpyxl.load_workbook("example1.xlsx")
 
-sheet2 = wb["Sheet2"]
+# Copied contents of original worksheet to a new one where the adjustments will be made.
+sheet1 = wb["Sheet1"]
+sheet2 = wb.copy_worksheet(sheet1)
+sheet2.title = "Updated Sheet"
 
 # Updated produce price dictionary.
 updated_produce = {"Celery": 1.19, "Garlic": 3.07, "Lemon": 1.27}
@@ -30,4 +33,4 @@ for produce in updated_produce.keys():
         sheet2[f"A{value}"], sheet2[f"B{value}"], sheet2[f"D{value}"] = \
             produce, updated_produce[produce], f"=ROUND(B{value}*C{value}, 2)"
 
-wb.save("example1.xlsx")
+print(wb.sheetnames)
